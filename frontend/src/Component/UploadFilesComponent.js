@@ -93,20 +93,18 @@ export default class UploadFilesComponent extends Component {
     return (
       <Modal isOpen={isModalOpen}>
         <div>
-        <button
-          className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
-          onClick={() => this.setState({ isModalOpen: false })}
-        >
-          <svg
-            className="h-6 w-6 fill-current"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
+          <button
+            className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
+            onClick={() => this.setState({ isModalOpen: false })}
           >
-            <path
-              d="M12.7071 10.0001L16.3638 6.34336C16.7543 5.95282 16.7543 5.3199 16.3638 4.92936C15.9733 4.53883 15.3404 4.53883 14.9499 4.92936L11.2932 8.5861L7.63642 4.92936C7.24588 4.53883 6.61296 4.53883 6.22243 4.92936C5.83189 5.3199 5.83189 5.95282 6.22243 6.34336L9.87915 10.0001L6.22243 13.6569C5.83189 14.0475 5.83189 14.6804 6.22243 15.0709C6.61296 15.4615 7.24588 15.4615 7.63642 15.0709L11.2932 11.4141L14.9499 15.0709C15.3404 15.4615 15.9733 15.4615 16.3638 15.0709C16.7543 14.6804 16.7543 14.0475 16.3638 13.6569L12.7071 10.0001Z"
-            />
-          </svg>
-        </button>
+            <svg
+              className="h-6 w-6 fill-current"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M12.7071 10.0001L16.3638 6.34336C16.7543 5.95282 16.7543 5.3199 16.3638 4.92936C15.9733 4.53883 15.3404 4.53883 14.9499 4.92936L11.2932 8.5861L7.63642 4.92936C7.24588 4.53883 6.61296 4.53883 6.22243 4.92936C5.83189 5.3199 5.83189 5.95282 6.22243 6.34336L9.87915 10.0001L6.22243 13.6569C5.83189 14.0475 5.83189 14.6804 6.22243 15.0709C6.61296 15.4615 7.24588 15.4615 7.63642 15.0709L11.2932 11.4141L14.9499 15.0709C15.3404 15.4615 15.9733 15.4615 16.3638 15.0709C16.7543 14.6804 16.7543 14.0475 16.3638 13.6569L12.7071 10.0001Z" />
+            </svg>
+          </button>
           {selectedFileDetails && (
             <div>
               <h2>File Details</h2>
@@ -178,13 +176,26 @@ export default class UploadFilesComponent extends Component {
         </div>
         {fileInfos.length > 0 && (
           <div className="card">
-            <div className="card-header">Download the files</div>
+            <div className="card-header border-2 border-black mb-2">Download the files</div>
             <ul className="list-group list-group-flush">
               {fileInfos.map((fileInfo) => (
-                <div className="list-group-item" key={fileInfo.id}>
+                <div
+                  className="flex flex-row justify-between border-2 border-black mb-2"
+                  key={fileInfo.id}
+                >
+                  <div className="w-4/6 ">
                   <span>{fileInfo.fileName}</span>
-                  <button onClick={() => this.showFileDetails(fileInfo.id)}>
+                  </div>
+                  <button
+                    className="w-1/6 bg-gray-200 border-r-2 border-l-2 border-black"
+                    onClick={() => this.showFileDetails(fileInfo.id)}
+                  >
                     Show File Details
+                  </button>
+                  <button
+                    className="w-1/6 bg-gray-200 border-r-2 border-l-2 border-black"
+                  >
+                    Download file
                   </button>
                 </div>
               ))}
