@@ -87,6 +87,16 @@ export default class UploadFilesComponent extends Component {
       });
   }
 
+  downloadFile(fileId, fileName){
+    UploadService.downloadFile(fileId,fileName)
+    .then(() => {
+    })
+    .catch((error) => {
+      console.error("Error fetching file details:", error);
+    });
+
+  }
+
   renderFileDetailsModal() {
     const { isModalOpen, selectedFileDetails } = this.state;
 
@@ -194,8 +204,19 @@ export default class UploadFilesComponent extends Component {
                   </button>
                   <button
                     className="w-1/6 bg-gray-200 border-r-2 border-l-2 border-black"
+                    onClick={() => this.downloadFile(fileInfo.id, fileInfo.fileName)}
                   >
                     Download file
+                  </button>
+                  <button
+                    className="w-1/6 bg-gray-200 border-r-2 border-l-2 border-black"
+                  >
+                    Update file
+                  </button>
+                  <button
+                    className="w-1/6 bg-gray-200 border-r-2 border-l-2 border-black"
+                  >
+                    Delete file
                   </button>
                 </div>
               ))}
