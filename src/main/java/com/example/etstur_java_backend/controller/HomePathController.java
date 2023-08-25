@@ -4,13 +4,12 @@ package com.example.etstur_java_backend.controller;
 import com.example.etstur_java_backend.entity.dto.UserLoginRequestDTO;
 import com.example.etstur_java_backend.entity.dto.UserRegisterRequestDTO;
 import com.example.etstur_java_backend.service.UserCRUDService;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@SecurityRequirement(name = "basicAuth")
+
 @RestController
 @RequestMapping("")
 @AllArgsConstructor

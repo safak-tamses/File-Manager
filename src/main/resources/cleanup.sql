@@ -1,0 +1,2 @@
+DELETE FROM _file WHERE id = 10000;
+DELETE FROM _file WHERE id = 10001;
