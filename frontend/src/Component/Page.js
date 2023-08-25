@@ -22,14 +22,19 @@ function Page() {
   if (isRequestSuccess === false) {
     return <Navigate to="/login" />;
   }
+  const quit = () =>{
+    localStorage.removeItem('token')
+    window.location.href = "/login";
+  }
 
   return (
     <div>
       <nav className="navbar navbar-dark bg-dark">
         <div className="btn-group mx-auto">
-          <h2 className="text-white">
-            Spring Boot + React Drag and Drop File Upload & Download
-          </h2>
+          <h3 className="text-white">
+            Etstur Test Case Spring Boot + React Drag and Drop File Upload & Download
+          </h3>
+          <button className="text-white" onClick={() => quit()}>Logout</button>
         </div>
       </nav>
       <br></br>
