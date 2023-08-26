@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Dropzone from "react-dropzone";
 import UploadService from "../Service/UploadFilesService";
-import Modal from "react-modal"; // Modal kütüphanesi
+import Modal from "react-modal";
 
 export default class UploadFilesComponent extends Component {
   constructor(props) {
@@ -20,6 +20,7 @@ export default class UploadFilesComponent extends Component {
       fileInfos: [],
       isModalOpen: false,
       selectedFileDetails: null,
+      errorMessage: ""
     };
   }
 
@@ -51,10 +52,15 @@ export default class UploadFilesComponent extends Component {
       });
     })
       .then((response) => {
-        this.setState({
-          message: response.data.message,
-        });
-        window.location.reload();
+        console.log(response.data)
+        if(response.data.errorMessage !== null){
+          this.setState({
+            errorMessage: response.data.errorMessage,
+          })
+        }
+        if(response.data.message === 'File saved successfully.'){
+          window.location.reload();
+        }
       })
       .catch((error) => {
         this.setState({
@@ -153,7 +159,7 @@ export default class UploadFilesComponent extends Component {
 
     return (
       <Modal isOpen={isModalOpen}>
-        <div>
+        <div className="relative">
           <button
             className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
             onClick={() => this.setState({ isModalOpen: false })}
@@ -167,16 +173,25 @@ export default class UploadFilesComponent extends Component {
             </svg>
           </button>
           {selectedFileDetails && (
-            <div>
-              <h2>File Details</h2>
-              <p>File Name: {selectedFileDetails.fileName}</p>
-              <p>File Extension: {selectedFileDetails.fileExtension}</p>
-              <p>Path: {selectedFileDetails.path}</p>
-              <p>File Size: {selectedFileDetails.fileSize}</p>
-              <p>Create Date: {selectedFileDetails.createDate}</p>
-              <p>Update Date: {selectedFileDetails.updateDate}</p>
-              <p>User Name: {selectedFileDetails.userName}</p>
-              <button onClick={() => this.setState({ isModalOpen: false })}>
+            <div className="bg-white rounded-lg shadow-lg p-6 mt-4">
+              <h2 className="text-lg font-semibold mb-4">File Details</h2>
+              <p className="mb-1">File Name: {selectedFileDetails.fileName}</p>
+              <p className="mb-1">
+                File Extension: {selectedFileDetails.fileExtension}
+              </p>
+              <p className="mb-1">Path: {selectedFileDetails.path}</p>
+              <p className="mb-1">File Size: {selectedFileDetails.fileSize}</p>
+              <p className="mb-1">
+                Create Date: {selectedFileDetails.createDate}
+              </p>
+              <p className="mb-1">
+                Update Date: {selectedFileDetails.updateDate}
+              </p>
+              <p className="mb-1">User Name: {selectedFileDetails.userName}</p>
+              <button
+                className="px-4 py-2 mt-4 bg-gray-800 text-white rounded-lg hover:bg-gray-900"
+                onClick={() => this.setState({ isModalOpen: false })}
+              >
                 Close
               </button>
             </div>
@@ -202,7 +217,9 @@ export default class UploadFilesComponent extends Component {
                     {selectedFiles && selectedFiles[0].name}
                   </div>
                 ) : (
-                  <h4>Drag and drop file here, or click to select file</h4>
+                  <h4 className="text-black">
+                    Drag and drop file here, or click to select file
+                  </h4>
                 )}
               </div>
               <aside className="selected-file-wrapper">
@@ -213,6 +230,7 @@ export default class UploadFilesComponent extends Component {
                 >
                   Upload
                 </button>
+                <div className="h-8 w-full text-black mt-4">{this.state.errorMessage}</div>
               </aside>
             </section>
           )}
@@ -236,27 +254,27 @@ export default class UploadFilesComponent extends Component {
           {message}
         </div>
         {fileInfos.length > 0 && (
-          <div className="card">
-            <div className="card-header border-2 border-black mb-2">
-              Download the files
+          <div className="">
+            <div className="text-black text-xl h-12 mb-2 flex justify-center items-center">
+              Your existing files
             </div>
-            <ul className="list-group list-group-flush">
+            <ul className="">
               {fileInfos.map((fileInfo) => (
                 <div
-                  className="flex flex-row justify-between border-2 border-black mb-2"
+                  className="flex flex-row bg-slate-200 justify-between border border-black mt-2 h-12 flex justify-center items-center"
                   key={fileInfo.id}
                 >
-                  <div className="w-4/6 ">
+                  <div className="w-4/6">
                     <span>{fileInfo.fileName}</span>
                   </div>
                   <button
-                    className="w-1/6 bg-gray-200 border-r-2 border-l-2 border-black"
+                    className="w-1/6 h-3/4 bg-yellow-200 ring-2 hover:ring-4"
                     onClick={() => this.showFileDetails(fileInfo.id)}
                   >
-                    Show File Details
+                    File Details
                   </button>
                   <button
-                    className="w-1/6 bg-gray-200 border-r-2 border-l-2 border-black"
+                    className="w-1/6 h-3/4 bg-green-200 ring-2 hover:ring-4 ml-2"
                     onClick={() =>
                       this.downloadFile(fileInfo.id, fileInfo.fileName)
                     }
@@ -265,14 +283,14 @@ export default class UploadFilesComponent extends Component {
                   </button>
 
                   <button
-                    className="w-1/6 bg-gray-200 border-r-2 border-l-2 border-black"
+                    className="w-1/6 h-3/4 bg-blue-100 ring-2 hover:ring-4 ml-2"
                     onClick={() => this.updateFile(fileInfo.id)}
                   >
                     Update file
                   </button>
 
                   <button
-                    className="w-1/6 bg-gray-200 border-r-2 border-l-2 border-black"
+                    className="w-1/6 h-3/4 bg-red-400 ring-2 hover:ring-4 ml-2 mr-2"
                     onClick={() => this.deleteFile(fileInfo.id)}
                   >
                     Delete file
