@@ -42,7 +42,7 @@ public class ApplicationConfig {
         return daoAuthenticationProvider;
     }
     @Bean
-    public void CreateAdminAccount(){
+    public void createAdminAccount(){
         if (repository.findByUserName("admin").isEmpty()){
             User admin = User.builder()
                     .userName("admin")
@@ -52,5 +52,6 @@ public class ApplicationConfig {
             repository.save(admin);
         }
     }
+
 
 }

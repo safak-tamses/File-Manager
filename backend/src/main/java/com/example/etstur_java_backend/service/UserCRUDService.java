@@ -30,7 +30,7 @@ public class UserCRUDService {
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
 
-    public GenericResponse<?> saveUser(UserRegisterRequestDTO user) {
+    public GenericResponse<UserResponseDTO> saveUser(UserRegisterRequestDTO user) {
         Optional<User> testUser = userRepository.findByUserName(user.getUsername());
 
         if (testUser.isPresent()) {
@@ -48,7 +48,7 @@ public class UserCRUDService {
                 .build());
     }
 
-    public GenericResponse<?> userLogin(UserLoginRequestDTO authenticationRequest) {
+    public GenericResponse<AuthenticationResponse> userLogin(UserLoginRequestDTO authenticationRequest) {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
