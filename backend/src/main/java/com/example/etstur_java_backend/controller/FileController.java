@@ -3,6 +3,7 @@ package com.example.etstur_java_backend.controller;
 
 import com.example.etstur_java_backend.service.FileService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@SecurityRequirement(name = "bearerAuth")
 @RequestMapping("/user/files")
 public class FileController {
     private final FileService fileService;

@@ -8,7 +8,9 @@ export default class UploadFilesComponent extends Component {
     super(props);
     this.upload = this.upload.bind(this);
     this.onDrop = this.onDrop.bind(this);
-    this.showFileDetails = this.showFileDetails.bind(this); // Fonksiyonu bağlamak
+    this.showFileDetails = this.showFileDetails.bind(this);
+    this.downloadFile = this.downloadFile.bind(this);
+    this.updateFile = this.updateFile.bind(this);
 
     this.state = {
       selectedFiles: undefined,
@@ -87,14 +89,63 @@ export default class UploadFilesComponent extends Component {
       });
   }
 
-  downloadFile(fileId, fileName){
-    UploadService.downloadFile(fileId,fileName)
-    .then(() => {
-    })
-    .catch((error) => {
-      console.error("Error fetching file details:", error);
-    });
+  downloadFile(fileId, fileName) {
+    UploadService.downloadFile(fileId, fileName)
+      .then(() => {})
+      .catch((error) => {
+        console.error("Error fetching file details:", error);
+      });
+  }
 
+  updateFile(fileId) {
+    const { selectedFiles } = this.state;
+
+    if (!selectedFiles || selectedFiles.length === 0) {
+      this.setState({
+        message: "Please select a file.",
+      });
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", selectedFiles[0]);
+
+    UploadService.update(formData, fileId, (event) => {
+      this.setState({
+        progress: Math.round((100 * event.loaded) / event.total),
+      });
+    })
+      .then((response) => {
+        this.setState({
+          message: response.data.message,
+        });
+        window.location.reload();
+      })
+      .catch((error) => {
+        this.setState({
+          progress: 0,
+          message: "Could not update the file!",
+          currentFile: undefined,
+        });
+        console.error("File update error:", error);
+      });
+
+    this.setState({
+      selectedFiles: undefined,
+    });
+  }
+
+  deleteFile(fileId) {
+    UploadService.delete(fileId)
+      .then((response) => {
+        this.setState({
+          message: response.data.message,
+        });
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error("Could not update the file!", error);
+      });
   }
 
   renderFileDetailsModal() {
@@ -186,7 +237,9 @@ export default class UploadFilesComponent extends Component {
         </div>
         {fileInfos.length > 0 && (
           <div className="card">
-            <div className="card-header border-2 border-black mb-2">Download the files</div>
+            <div className="card-header border-2 border-black mb-2">
+              Download the files
+            </div>
             <ul className="list-group list-group-flush">
               {fileInfos.map((fileInfo) => (
                 <div
@@ -194,7 +247,7 @@ export default class UploadFilesComponent extends Component {
                   key={fileInfo.id}
                 >
                   <div className="w-4/6 ">
-                  <span>{fileInfo.fileName}</span>
+                    <span>{fileInfo.fileName}</span>
                   </div>
                   <button
                     className="w-1/6 bg-gray-200 border-r-2 border-l-2 border-black"
@@ -204,17 +257,23 @@ export default class UploadFilesComponent extends Component {
                   </button>
                   <button
                     className="w-1/6 bg-gray-200 border-r-2 border-l-2 border-black"
-                    onClick={() => this.downloadFile(fileInfo.id, fileInfo.fileName)}
+                    onClick={() =>
+                      this.downloadFile(fileInfo.id, fileInfo.fileName)
+                    }
                   >
                     Download file
                   </button>
+
                   <button
                     className="w-1/6 bg-gray-200 border-r-2 border-l-2 border-black"
+                    onClick={() => this.updateFile(fileInfo.id)}
                   >
                     Update file
                   </button>
+
                   <button
                     className="w-1/6 bg-gray-200 border-r-2 border-l-2 border-black"
+                    onClick={() => this.deleteFile(fileInfo.id)}
                   >
                     Delete file
                   </button>

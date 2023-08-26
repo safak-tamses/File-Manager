@@ -1,6 +1,5 @@
 import axios from "axios";
 import http from "../Common"
-const API_URL = "http://localhost:8080/user/files";
 
 class UploadFilesService {
   upload(file, onUploadProgress) {
@@ -50,6 +49,19 @@ class UploadFilesService {
       console.error("Error downloading file:", error);
       throw new Error("File download failed");
     }
+  }
+
+  async update(file, fileId, onUploadProgress){
+    return http.put(`/user/files/${fileId}`,file,{
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      onUploadProgress,
+    });
+  }
+
+  async delete(fileId){
+    return http.delete(`/user/files/${fileId}`);
   }
 }
 
