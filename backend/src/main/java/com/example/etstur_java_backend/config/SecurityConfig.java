@@ -29,11 +29,7 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers(
-                        new AntPathRequestMatcher("/register"),
-                        new AntPathRequestMatcher("/login"),
-                        new AntPathRequestMatcher("/loginWithToken")
-                        ).permitAll()
+                .requestMatchers(AUTH_WHITELIST).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/user/**")).hasRole("USER")
                 .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
                 .anyRequest().authenticated()
@@ -58,4 +54,16 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
+    private static final String [] AUTH_WHITELIST = {
+      "/api/v1/auth/**",
+      "/v3/api-docs/**",
+      "/v3/api-docs.yaml",
+      "/swagger-ui/**",
+      "/swagger-ui.html",
+      "/register",
+      "/login",
+      "/loginWithToken",
+      "swagger-ui/index.html"
+    };
 }
