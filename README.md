@@ -7,7 +7,6 @@ This project includes a React-based frontend application and a Spring Boot-based
 - [Node.js](https://nodejs.org/) (for the Frontend)
 - [npm](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/) (for the Frontend)
 - [Java Development Kit (JDK)](https://www.oracle.com/java/technologies/javase-downloads.html) (for the Backend)
-- [Spring Boot CLI](https://docs.spring.io/spring-boot/docs/current/reference/html/getting-started.html#getting-started-installing-the-cli) (for the Backend)
 - [PostgreSQL](https://www.postgresql.org/) database
 
 ## Frontend (React) Setup
