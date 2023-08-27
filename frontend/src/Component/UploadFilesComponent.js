@@ -52,13 +52,13 @@ export default class UploadFilesComponent extends Component {
       });
     })
       .then((response) => {
-        console.log(response.data)
+        console.log("x ", response.data)
         if(response.data.errorMessage !== null){
           this.setState({
             errorMessage: response.data.errorMessage,
           })
         }
-        if(response.data.message === 'File saved successfully.'){
+        if(response.data.data.message === 'File saved successfully.'){
           window.location.reload();
         }
       })
