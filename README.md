@@ -28,6 +28,8 @@ npm start
 
 3. This command will run the frontend application locally.
 
+---
+
 ## Backend (Spring Boot) Setup
 
 
@@ -41,13 +43,14 @@ spring.datasource.username=db_username
 spring.datasource.password=db_password
 ```
 
-3. After configuring the database, build and install the required dependencies for the Spring project using Maven:
+## To start the application:
+1. After configuring the database, build and install the required dependencies for the Spring project using Maven:
 
 ```bash
 mvn clean install
 ```
 
-4. Start the Spring Boot application by running the following command:
+2. Start the Spring Boot application by running the following command:
 
 ```bash
 java -jar backend/target/application.jar
