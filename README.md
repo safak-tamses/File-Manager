@@ -5,7 +5,7 @@ This project includes a React-based frontend application and a Spring Boot-based
 ## Requirements
 
 - [Node.js](https://nodejs.org/) (for the Frontend)
-- [npm](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/) (for the Frontend)
+- [npm](https://www.npmjs.com/) (for the Frontend)
 - [Java Development Kit (JDK)](https://www.oracle.com/java/technologies/javase-downloads.html) (for the Backend)
 - [PostgreSQL](https://www.postgresql.org/) database
 
