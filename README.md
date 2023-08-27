@@ -17,10 +17,12 @@ This project includes a React-based frontend application and a Spring Boot-based
 
    ```bash
    npm install
+   ```
    
 ## To start the application:
    ```bash
    npm start
+   ```
 
 3. This command will run the frontend application locally.
 
@@ -33,12 +35,15 @@ This project includes a React-based frontend application and a Spring Boot-based
    spring.datasource.url=jdbc:postgresql://localhost:5432/db_name
    spring.datasource.username=db_username
    spring.datasource.password=db_password
+   ```
 3. After configuring the database, build and install the required dependencies for the Spring project using Maven:
    ```bash
    mvn clean install
+   ```
 4. Start the Spring Boot application by running the following command:
    ```bash
    java -jar backend/target/application.jar
+   ```
 This command will launch the Spring Boot application.
 
 ## API Documentation
