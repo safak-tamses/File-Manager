@@ -59,7 +59,7 @@ This command will launch the Spring Boot application.
 
 ## API Documentation
 
--> You can review the required technical requirements in the project from the following file: `28.08.2023` located at the root path.
+-> You can review the required technical requirements in the project from the following file: `Etstur-java-case.docx` located at the root path.
 
 ->  To access the Postman collection with predefined requests, import the file `EtsTurJavaTestCase.postman_collection.json` located at the root path.
 
