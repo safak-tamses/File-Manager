@@ -1,4 +1,4 @@
-# EtsturTestCase Project
+# File Manager Spring & React Project
 
 This project includes a React-based frontend application and a Spring Boot-based backend application.
 
