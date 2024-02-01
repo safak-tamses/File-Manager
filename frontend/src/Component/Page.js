@@ -32,8 +32,7 @@ function Page() {
       <button className="absolute right-4 flex justify-center items-center ring-offset-2 ring" onClick={() => quit()}>Logout</button>
         <div className="w-6/8">
           <h3 className="text-black text-center">
-            Etstur Test Case Spring Boot + React Drag and Drop File Upload &
-            Download
+           File Manager & Drag and Drop File Storage
           </h3>
         </div>
       </nav>

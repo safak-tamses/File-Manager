@@ -1,0 +1,16 @@
+version: '3.3'
+services:
+  postgres:
+    image: postgres:14-alpine
+    ports:
+      - "5433:5432"
+    volumes:
+      - ~/apps/postgres:/var/lib/postgresql/data
+    restart: always
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=example
+      - POSTGRES_DB=crud
+networks:
+  default:
+    driver: bridge
